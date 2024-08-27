@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-factor Authentication</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // User credentials
+const storedUsername = "admin";
+const storedPassword = "password";
+
+// Function to validate user credentials
+function authenticate(username, password) {
+  if (username === storedUsername && password === storedPassword) {
+    return true;
+  }
+  return false;
+}
+
+// Function to generate a random six-digit code
+function generateCode() {
+  return Math.floor(100000 + Math.random() * 900000);
+}
+
+// Prompt for username and password
+const username = prompt("Enter your username:");
+const password = prompt("Enter your password:");
+
+// Authenticate user
+if (authenticate(username, password)) {
+  // Generate a code
+  const code = generateCode();
+
+  // Prompt the user to enter the code
+  const inputCode = prompt(`Enter the six-digit code sent to your device: ${code}`);
+
+  // Check if the entered code matches the generated code
+  if (inputCode === code.toString()) {
+    console.log("Authentication successful!");
+    
+  } else {
+    console.log("Authentication failed. Invalid code.");
+  }
+} else {
+  console.log("Authentication failed. Please try again.");
+}
+
+</script>
+</html>

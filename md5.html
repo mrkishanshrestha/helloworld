@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message Digest 5</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function md5(message) {
+  function rotateLeft(x, n) {
+    return (x << n) | (x >>> (32 - n));
+  }
+
+  function convertToWordArray(message) {
+    var length = message.length;
+    var wordCount = ((length + 8) >> 6) + 1;
+    var words = new Array(wordCount * 16);
+
+    for (var i = 0; i < wordCount * 16; i++) {
+      words[i] = 0;
+    }
+
+    for (var i = 0; i < length; i++) {
+      words[i >> 2] |= message.charCodeAt(i) << ((i % 4) * 8);
+    }
+
+    words[length >> 2] |= 0x80 << ((length % 4) * 8);
+    words[wordCount * 16 - 2] = length * 8;
+
+    return words;
+  }
+
+  var hashValues = [
+    0x67452301, 0xefcdab89, 0x98badcfe, 0x10325476
+  ];
+  var roundConstants = [
+    0x5a827999, 0x6ed9eba1, 0x8f1bbcdc, 0xca62c1d6
+  ];
+  var shiftAmounts = [
+    7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22, 7, 12, 17, 22,
+    5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20, 5,  9, 14, 20,
+    4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23, 4, 11, 16, 23,
+    6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21, 6, 10, 15, 21
+  ];
+
+  var messageWords = convertToWordArray(message);
+  var messageLength = message.length * 8;
+
+  for (var i = 0; i < messageWords.length; i += 16) {
+    var a = hashValues[0];
+    var b = hashValues[1];
+    var c = hashValues[2];
+    var d = hashValues[3];
+
+    for (var j = 0; j < 64; j++) {
+      var f, g;
+
+      if (j < 16) {
+        f = (b & c) | (~b & d);
+        g = j;
+      } else if (j < 32) {
+        f = (d & b) | (~d & c);
+        g = (5 * j + 1) % 16;
+      } else if (j < 48) {
+        f = b ^ c ^ d;
+        g = (3 * j + 5) % 16;
+      } else {
+        f = c ^ (b | ~d);
+        g = (7 * j) % 16;
+      }
+
+      var temp = d;
+      d = c;
+      c = b;
+      b = b + rotateLeft((a + f + roundConstants[j] + messageWords[i + g]), shiftAmounts[j]);
+      a = temp;
+    }
+
+    hashValues[0] += a;
+    hashValues[1] += b;
+    hashValues[2] += c;
+    hashValues[3] += d;
+  }
+
+  var hash = "";
+  for (var i = 0; i < hashValues.length; i++) {
+    hash += ((hashValues[i] < 0) ? (hashValues[i] + 0x100000000) : hashValues[i]).toString(16);
+  }
+
+  return hash;
+}
+
+// Example usage:
+var message = "Hello, World!";
+var hash = md5(message);
+console.log("MD5 hash:", hash);
+
+
+</script>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Role based Access Control</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // Define roles and their corresponding permissions
+const roles = {
+  admin: ['create', 'read', 'update', 'delete'],
+  editor: ['create', 'read', 'update'],
+  guest: ['read'],
+};
+
+// Simulate user data
+const users = [
+  { username: 'Aman', role: 'admin' },
+  { username: 'Rajan', role: 'editor' },
+  { username: 'Suraj', role: 'guest' },
+];
+
+// Function to check if a user has permission for an action
+function hasPermission(userRole, action) {
+  if (!roles[userRole]) {
+    // Role does not exist
+    return false;
+  }
+
+  // Check if the action is allowed for the user's role
+  return roles[userRole].includes(action);
+}
+
+// Simulate authorization checks
+function authorize(user, action) {
+  const { username, role } = user;
+
+  if (hasPermission(role, action)) {
+    console.log(`User '${username}' is authorized to '${action}'.`);
+  } else {
+    console.log(`User '${username}' is not authorized to '${action}'.`);
+  }
+}
+
+// Example usage:
+authorize(users[0], 'create'); // User 'Aman' is authorized to 'create'.
+authorize(users[1], 'delete'); // User 'Rajan' is not authorized to 'delete'.
+authorize(users[2], 'read');   // User 'Suraj' is authorized to 'read'.
+
+</script>
+</html>

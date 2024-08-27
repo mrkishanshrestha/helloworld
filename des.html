@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DES</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+<body>
+    
+</body>
+<script>
+
+
+// Function to encrypt using DES
+function desEncrypt(message, key) {
+  var encryptedMessage = CryptoJS.DES.encrypt(message, key).toString();
+  return encryptedMessage;
+}
+
+// Function to decrypt using DES
+function desDecrypt(encryptedMessage, key) {
+  var decryptedBytes = CryptoJS.DES.decrypt(encryptedMessage, key);
+  var decryptedMessage = decryptedBytes.toString(CryptoJS.enc.Utf8);
+  return decryptedMessage;
+}
+
+// Example usage:
+var message = "Hello, World!";
+var key = "ThisIsTheSecretKey";
+
+var encryptedMessage = desEncrypt(message, key);
+console.log("Encrypted message:", encryptedMessage);
+
+var decryptedMessage = desDecrypt(encryptedMessage, key);
+console.log("Decrypted message:", decryptedMessage);
+
+</script>
+</html>

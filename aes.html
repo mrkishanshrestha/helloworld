@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.js"></script>
+</head>
+</head>
+
+<body>
+
+    <script>
+        // Function to encrypt using AES
+        function aesEncrypt(message, key) {
+            var encryptedMessage = CryptoJS.AES.encrypt(message, key).toString();
+            return encryptedMessage;
+        }
+
+        // Function to decrypt using AES
+        function aesDecrypt(encryptedMessage, key) {
+            var decryptedBytes = CryptoJS.AES.decrypt(encryptedMessage, key);
+            var decryptedMessage = decryptedBytes.toString(CryptoJS.enc.Utf8);
+            return decryptedMessage;
+        }
+
+        // Example usage:
+        var message = "Hello World !";
+        var key = "ThisIsTheSecretKey1234567890";
+
+        var encryptedMessage = aesEncrypt(message, key);
+        console.log("Encrypted message:", encryptedMessage);
+
+        var decryptedMessage = aesDecrypt(encryptedMessage, key);
+        console.log("Decrypted message:", decryptedMessage);
+    </script>
+
+</body>
+
+</html>

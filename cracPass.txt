@@ -1,0 +1,16 @@
+Lab Practical: Cracking Password Hashes Using John the Ripper
+Suppose you are given the MD5 hash 5f4dcc3b5aa765d61d8327deb882cf99 (which corresponds to the password "password"):
+Install
+sudo apt-get install john
+Create the Hash File:
+echo " 5eac754ae0314ff382fff8684c04abcb" > crack.txt
+sudo vi /usr/share/wordlists/rockyou.txt  {insert desired password : for an example: achs@123}
+Run John the Ripper:
+Basic attack:
+john crack.txt
+Using the rockyou.txt wordlist:    [to check cd  usr/share/wordlists]
+john --wordlist=/usr/share/wordlists/rockyou.txt crack.txt
+Specifying the hash format as MD5:
+john --format=raw-md5 crack.txt
+Check the Cracked Password:
+john --show --format=Raw-MD5 crack.txt

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ceasar Cipher</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // Function to encrypt a message using the Caesar cipher
+function caesarCipherEncrypt(message, shift) {
+  var encryptedMessage = "";
+
+  for (var i = 0; i < message.length; i++) {
+    var char = message[i];
+
+    // Encrypt uppercase letters
+    if (char.match(/[A-Z]/)) {
+      var code = ((char.charCodeAt(0) - 65 + shift) % 26) + 65;
+      encryptedMessage += String.fromCharCode(code);
+    }
+    // Encrypt lowercase letters
+    else if (char.match(/[a-z]/)) {
+      var code = ((char.charCodeAt(0) - 97 + shift) % 26) + 97;
+      encryptedMessage += String.fromCharCode(code);
+    }
+    // Keep non-alphabetic characters as they are
+    else {
+      encryptedMessage += char;
+    }
+  }
+
+  return encryptedMessage;
+}
+
+// Function to decrypt a message using the Caesar cipher
+function caesarCipherDecrypt(message, shift) {
+  // To decrypt, we just need to shift in the opposite direction
+  shift = 26 - shift;
+  return caesarCipherEncrypt(message, shift);
+}
+
+// Example usage:
+var message = "Govinda Gautam";
+var shift = 3;
+
+var encryptedMessage = caesarCipherEncrypt(message, shift);
+console.log("Encrypted message:", encryptedMessage);
+
+var decryptedMessage = caesarCipherDecrypt(encryptedMessage, shift);
+console.log("Decrypted message:", decryptedMessage);
+
+</script>
+</html>

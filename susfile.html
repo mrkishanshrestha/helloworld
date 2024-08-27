@@ -1,0 +1,32 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious file check</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // Function to check for suspicious file extensions
+function checkFileExtension(filename) {
+  const suspiciousExtensions = [".exe", ".bat", ".vbs", ".js"];
+
+  const fileExtension = filename.slice(filename.lastIndexOf("."));
+
+  return suspiciousExtensions.includes(fileExtension);
+}
+
+// Example usage
+const userInput = prompt("Enter the filename:");
+
+if (checkFileExtension(userInput)) {
+  console.log("Suspicious file extension detected!");
+} else {
+  console.log("File extension appears to be safe.");
+}
+
+</script>
+</html>
